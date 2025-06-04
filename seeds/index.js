@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const cities = require('./cities');
-const { places, descriptors } = require('./seedHelpers');
-const Business = require('../models/business');
+import mongoose from 'mongoose';
+import cities from './cities.js';
+import Business from "../models/business.js";
+import { descriptors, places } from './seedHelpers.js';
 
 const url = 'mongodb+srv://yelpclone1:yelpclone1@cluster0.tnyqubr.mongodb.net/yelpclone1?retryWrites=true&w=majority'
 
