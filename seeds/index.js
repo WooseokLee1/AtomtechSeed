@@ -3,8 +3,7 @@ import cities from './cities.js';
 import Business from "../models/business.js";
 import { descriptors, places } from './seedHelpers.js';
 
-const url = 'mongodb+srv://yelpclone1:yelpclone1@cluster0.tnyqubr.mongodb.net/yelpclone1?retryWrites=true&w=majority'
-
+const url = 'mongodb+srv://kusoyoung0326:tuZN1Uc3TeRqMFhj@cluster0.h6pbeh7.mongodb.net/yelpclone?retryWrites=true&w=majority&appName=Cluster0'
 mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
