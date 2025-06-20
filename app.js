@@ -50,11 +50,21 @@ app.post('/business', async (req, res) => {
     await newBusiness.save();
     res.redirect(`/business/${newBusiness._id}`);
 });
+app.get('/business/:id/update', async (req, res) => {
 
+    const { id } = req.params;
+
+    
+    const business = await Business.findById(id);
+
+    
+    res.render('businesses/update', { business });
+});
 app.get('/business/:id', async (req, res) => {
     const business = await Business.findById(req.params.id);
     res.render('businesses/show', { business });
 });
+
 
 app.listen(3000, () => {
     console.log('Serving on port 3000')

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Business</title>
+</head>
+<body>
+    <h1>Update Business</h1>
+    <form action="/business/<%= business._id %>?_method=PUT" method="POST">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="business[title]" value="<%= business.title %>">
+        </div>
+        <div>
+            <label for="location">Location</label>
+            <input type="text" id="location" name="business[location]" value="<%= business.location %>">
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <textarea id="description" name="business[description]"><%= business.description %></textarea>
+        </div>
+        
+        <button type="submit">Submit</button>
+    </form>
+    
+    <a href="/business/<%= business._id %>">Back</a>
+</body>
+</html>
