@@ -66,6 +66,16 @@ app.get('/business/:id', async (req, res) => {
 });
 
 
+app.put('/business/:id', async (req, res) => {
+    const { id } = req.params;
+    const updatedBusiness = await Business.findByIdAndUpdate(
+        id, 
+        { ...req.body.business },
+        { new: true, runValidators: true }
+    );
+    res.redirect(`/business/${updatedBusiness._id}`);
+});
+
 app.listen(3000, () => {
     console.log('Serving on port 3000')
 })
