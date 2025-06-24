@@ -7,7 +7,7 @@ import Review from "./models/review.js";
 import { fileURLToPath } from 'url';
 
 
-const url = 'mongodb+srv://kusoyoung0326:tuZN1Uc3TeRqMFhj@cluster0.h6pbeh7.mongodb.net/yelpclone?retryWrites=true&w=majority&appName=Cluster0'
+const url = 'mongodb+srv://woooseok:Sasmeye2@cluster0.fja7njd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
