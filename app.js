@@ -76,6 +76,12 @@ app.put('/business/:id', async (req, res) => {
     res.redirect(`/business/${updatedBusiness._id}`);
 });
 
+app.delete('/business/:id', async (req, res) => {
+    const { id } = req.params;
+    await Business.findByIdAndDelete(id);
+    res.redirect('/business');
+})
+
 app.listen(3000, () => {
     console.log('Serving on port 3000')
 })
