@@ -61,7 +61,7 @@ app.get('/business/:id/update', async (req, res) => {
     res.render('businesses/update', { business });
 });
 app.get('/business/:id', async (req, res) => {
-    const business = await Business.findById(req.params.id);
+    const business = await Business.findById(req.params.id).populate('reviews');
     res.render('businesses/show', { business });
 });
 
@@ -80,6 +80,21 @@ app.delete('/business/:id', async (req, res) => {
     const { id } = req.params;
     await Business.findByIdAndDelete(id);
     res.redirect('/business');
+})
+
+app.post('/business/:id/reviews', async (req, res) => {
+    const { id } = req.params;
+
+    const business = await Business.findById(id);
+
+    const review = new Review(req.body.review);
+
+    business.reviews.push(review);
+
+    await review.save();
+    await business.save();
+
+    res.redirect(`/business/${business._id}`);
 })
 
 app.listen(3000, () => {

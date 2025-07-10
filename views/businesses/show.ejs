@@ -17,5 +17,34 @@
         Delete
     </button>
 </form>
+
+<hr>
+
+<h2>Add a Review</h2>
+<form action="/business/<%= business._id %>/reviews" method="POST">
+    <label for="rating">Rating (1 to 5):</label>
+    <input type="range" name="review[rating]" id="rating" min="1" max="5" required /><br>
+
+    <label for="body">Review:</label><br>
+    <textarea name="review[body]" id="body" cols="30" rows="3" required></textarea>
+
+    <button type="submit">Submit Review</button>
+</form>
+
+<hr>
+
+<h2>Reviews</h2>
+<% if (business.reviews.length === 0) { %>
+    <p>No reviews yet.</p>
+<% } else { %>
+    <ul>
+    <% for (let review of business.reviews) { %>
+        <li>
+            <strong>Rating:</strong> <%= review.rating %> <br>
+            <strong>Review:</strong><br> <%- review.body.replace(/\n/g, '<br>') %>
+        </li>
+    <% } %>
+    </ul>
+<% } %>
 </body>
 </html>
