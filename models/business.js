@@ -10,7 +10,11 @@ const BusinessSchema = new Schema ({
             type: Schema.Types.ObjectId,
             ref: 'Review'
         }
-    ]
+    ],
+    averageRating: {
+        type: Number,
+        default: 0
+    }
 });
 
 

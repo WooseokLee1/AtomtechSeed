@@ -94,7 +94,36 @@ app.post('/business/:id/reviews', async (req, res) => {
     await review.save();
     await business.save();
 
+    const allReviews = await Review.find({ _id: { $in: business.reviews } });
+    const average = allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+
+    business.averageRating = average;
+    await business.save();
+
     res.redirect(`/business/${business._id}`);
+})
+
+app.delete('/business/:id/reviews/:reviewId', async (req, res) => {
+    const { id, reviewId } = req.params;
+
+    const business= await Business.findById(id);
+    business.reviews.pull(reviewId);
+    
+    if (business. reviews. length>0) {
+        const allReviews = await Review.find({ _id: { $in: business.reviews } });
+        const average= allReviews.reduce((sum,r) => sum+ r.rating,0) / allReviews.length;
+        business.averageRating = average;
+    } else {
+        business.averageRating = 0;
+    }
+
+    await business.save();
+
+    // await Review.findByIdAndDelete(reviewId);
+
+    // await Business.findByIdAndUpdate(id, { $pull: { reviews: reviewId }});
+
+    res.redirect(`/business/${id}`)
 })
 
 app.listen(3000, () => {

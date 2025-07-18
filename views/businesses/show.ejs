@@ -7,7 +7,14 @@
     <title><%= business.title %></title>
 </head>
 <body>
-    <h1><%= business.title %></h1>
+    <h1>
+        <%= business.title %>
+        <% if (business.averageRating > 0) { %>
+          - <%= business.averageRating.toFixed(1) %> &#9733;
+        <% } else { %>
+          - No rating yet
+        <% } %>
+    </h1>
     <h1><%= business.description %></h1>
     <h1><%= business.location %></h1>
 <a href="/business">All Businesses</a>
@@ -41,7 +48,11 @@
     <% for (let review of business.reviews) { %>
         <li>
             <strong>Rating:</strong> <%= review.rating %> <br>
-            <strong>Review:</strong><br> <%- review.body.replace(/\n/g, '<br>') %>
+            <strong>Review:</strong><br> <%- review.body.replace(/\n/g, '<br>') %> <br>
+
+            <form action="/business/<%= business._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" style="margin-top: 10px;">
+                <button type="submit" onclick="return confirm('Delete this review?');">Delete</button>
+            </form>
         </li>
     <% } %>
     </ul>
