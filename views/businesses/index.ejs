@@ -8,13 +8,71 @@
 </head>
 <body>
     <h1>All Businesses</h1>
+
+    <label for="sort">Sort by:</label>
+    <select id="sort" onchange="sortBusinesses()">
+        <option value="az">A - Z</option>
+        <option value="za">Z - A</option>
+        <option value="low">Rating: Low to High</option>
+        <option value="high">Rating: High to Low</option>
+    </select>
     <div>
         <a href="/business/new">Add Business</a>
     </div>
-    <ul>
+    <ul id="business-container">
         <% for (let b of business) { %>
-            <li><a href="/business/<%= b._id %>"><%= b.title %></a></li>
-            <% }%>
+            <li class="business-card"
+                    data-title="<%= b.title %>"
+                    data-rating="<%= b.averageRating || 0 %>">
+                <a href="/business/<%= b._id %>">
+                    <%= b.title %>
+                    <% if (b.averageRating > 0) { %>
+                        - <%= b.averageRating.toFixed(1) %> &#9733;
+                    <% } else { %>
+                        - No rating
+                    <% } %>
+                </a>
+            </li>
+        <% }%>
     </ul>
+
+    <script>
+        function sortBusinesses() {
+            const option = document.getElementById("sort").value;
+            const items = Array.from(document.querySelectorAll('.business-card'));
+
+
+            let sorted = [];
+
+            switch (option) {
+                case 'az':
+                    sorted = items.sort((a, b) =>
+                        a.dataset.title.localeCompare(b.dataset.title)
+                    );
+                    break;
+                case 'za':
+                    sorted = items.sort((a,b) =>
+                        b.dataset.title.localeCompare(a.dataset.title)
+                    );
+                    break;
+                case 'low':
+                    sorted= items.sort((a,b) =>
+                        parseFloat(a.dataset.rating) - parseFloat(b.dataset.rating)
+                    );
+                    break;
+                case 'high':
+                    sorted = items.sort((a,b) =>
+                        parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating)
+                    );
+                    break;
+        
+            }
+
+            const container = document.getElementById("business-container");
+            container.innerHTML = '';
+            sorted.forEach(item => container.appendChild(item));
+        
+        }
+    </script>
 </body>
 </html>
