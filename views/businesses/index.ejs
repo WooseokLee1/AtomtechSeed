@@ -5,9 +5,93 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Businesses</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+        
+        select {
+            margin: 10px 0;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .business-card {
+            list-style: none;
+            background-color: white;
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .business-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .business-card a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .business-card a:hover {
+            color: #007bff;
+        }
+
+        #business-container {
+            padding-left: 0;
+        }
+
+        a[href="/businesss/new"] {
+            display: inline-block;
+            margin-top: 10px;
+            margin-bottom:20px;
+            padding: 10px 16px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a[href='business/new']:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>All Businesses</h1>
+
+    <input type="text" id="search" placeholder="Search businesses..." onkeyup="searchBusinesses()">
 
     <label for="sort">Sort by:</label>
     <select id="sort" onchange="sortBusinesses()">
@@ -37,6 +121,19 @@
     </ul>
 
     <script>
+        function searchBusinesses() {
+            const input = document.getElementById("search").value.toLowerCase();
+            const businesses = document.querySelectorAll(".business-card");
+
+            businesses.forEach((biz) => {
+                const title = biz.dataset.title.toLowerCase();
+                if(title.includes(input)) {
+                    biz.style.display = "";
+                } else {
+                    biz.style.display = "none";
+                }
+            })
+        }
         function sortBusinesses() {
             const option = document.getElementById("sort").value;
             const items = Array.from(document.querySelectorAll('.business-card'));
